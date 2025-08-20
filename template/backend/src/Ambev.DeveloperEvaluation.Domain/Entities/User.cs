@@ -3,6 +3,7 @@ using Ambev.DeveloperEvaluation.Common.Validation;
 using Ambev.DeveloperEvaluation.Domain.Common;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.Domain.Validation;
+using Ambev.DeveloperEvaluation.Domain.ValueObjects;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
@@ -13,6 +14,12 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities;
 /// </summary>
 public class User : BaseEntity, IUser
 {
+
+    /// <summary>
+    /// Gets the user's name.
+    /// </summary>
+    public Name Name { get; set; }
+
     /// <summary>
     /// Gets the user's full name.
     /// Must not be null or empty and should contain both first and last names.

@@ -9,6 +9,8 @@ public class UserValidator : AbstractValidator<User>
     public UserValidator()
     {
         RuleFor(user => user.Email).SetValidator(new EmailValidator());
+        
+        RuleFor(user => user.Name).SetValidator(new NameValidator());
 
         RuleFor(user => user.Username)
             .NotEmpty()
