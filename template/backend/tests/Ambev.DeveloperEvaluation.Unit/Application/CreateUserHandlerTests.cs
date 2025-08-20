@@ -44,6 +44,7 @@ public class CreateUserHandlerTests
         {
             Id = Guid.NewGuid(),
             Username = command.Username,
+            Name = new(command.Name.FirstName, command.Name.LastName),
             Password = command.Password,
             Email = command.Email,
             Phone = command.Phone,
@@ -54,6 +55,7 @@ public class CreateUserHandlerTests
         var result = new CreateUserResult
         {
             Id = user.Id,
+            Name = new(command.Name.FirstName, command.Name.LastName)
         };
 
 
@@ -80,7 +82,10 @@ public class CreateUserHandlerTests
     public async Task Handle_InvalidRequest_ThrowsValidationException()
     {
         // Given
-        var command = new CreateUserCommand(); // Empty command will fail validation
+        var command = new CreateUserCommand()
+        {
+            Name = new("", "")
+        }; // Empty command will fail validation
 
         // When
         var act = () => _handler.Handle(command, CancellationToken.None);
@@ -103,6 +108,7 @@ public class CreateUserHandlerTests
         {
             Id = Guid.NewGuid(),
             Username = command.Username,
+            Name = new(command.Name.FirstName, command.Name.LastName),
             Password = command.Password,
             Email = command.Email,
             Phone = command.Phone,
@@ -137,6 +143,7 @@ public class CreateUserHandlerTests
         {
             Id = Guid.NewGuid(),
             Username = command.Username,
+            Name = new(command.Name.FirstName, command.Name.LastName),
             Password = command.Password,
             Email = command.Email,
             Phone = command.Phone,
