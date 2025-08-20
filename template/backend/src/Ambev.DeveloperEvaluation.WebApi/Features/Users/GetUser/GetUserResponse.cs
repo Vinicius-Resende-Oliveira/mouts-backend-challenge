@@ -1,3 +1,4 @@
+using Ambev.DeveloperEvaluation.Application.Users.Common;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Users.GetUser;
@@ -15,7 +16,12 @@ public class GetUserResponse
     /// <summary>
     /// The user's full name
     /// </summary>
-    public string Name { get; set; } = string.Empty;
+    public string UserName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The user's object name
+    /// </summary>
+    public required BaseName Name { get; set; }
 
     /// <summary>
     /// The user's email address

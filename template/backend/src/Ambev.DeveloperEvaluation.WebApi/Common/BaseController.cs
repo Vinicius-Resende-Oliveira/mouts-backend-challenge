@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Ambev.DeveloperEvaluation.Application.Common;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Common;
@@ -13,8 +14,14 @@ public class BaseController : ControllerBase
     protected string GetCurrentUserEmail() =>
         User.FindFirst(ClaimTypes.Email)?.Value ?? throw new NullReferenceException();
 
-    protected IActionResult Ok<T>(T data) =>
+    protected IActionResult OkMessage(string message) =>
+            base.Ok(new ApiResponse {Success = true, Message = message});
+
+    protected IActionResult OkData<T>(T data) =>
             base.Ok(new ApiResponseWithData<T> { Data = data, Success = true });
+
+    protected IActionResult OkMessageAndData<T>(string message, T data) =>
+            base.Ok(new ApiResponseWithData<T> { Data = data, Success = true, Message = message });
 
     protected IActionResult Created<T>(string routeName, object routeValues, T data) =>
         base.CreatedAtRoute(routeName, routeValues, new ApiResponseWithData<T> { Data = data, Success = true });
