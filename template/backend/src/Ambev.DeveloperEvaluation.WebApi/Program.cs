@@ -54,6 +54,8 @@ public class Program
 
             var app = builder.Build();
             app.UseMiddleware<ValidationExceptionMiddleware>();
+            app.UseMiddleware<UnauthorizedAccessExceptionMiddleware>();
+            app.UseMiddleware<KeyNotFoundExceptionMiddleware>();
 
             if (app.Environment.IsDevelopment())
             {
