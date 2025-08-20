@@ -8,6 +8,8 @@ using Ambev.DeveloperEvaluation.WebApi.Features.Users.DeleteUser;
 using Ambev.DeveloperEvaluation.Application.Users.CreateUser;
 using Ambev.DeveloperEvaluation.Application.Users.DeleteUser;
 using Ambev.DeveloperEvaluation.Application.Users.GetUser;
+using Ambev.DeveloperEvaluation.WebApi.Features.Users.ListUsers;
+using Ambev.DeveloperEvaluation.Application.Users.ListUsers;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Users;
 
@@ -108,5 +110,17 @@ public class UsersController : BaseController
         await _mediator.Send(command, cancellationToken);
 
         return OkMessage("User deleted successfully");
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(PaginatedResponse<GetUserResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllUsers([FromQuery] ListUsersRequest request)
+    {
+        var query = _mapper.Map<ListUsersCommand>(request);
+
+        var result = await _mediator.Send(query);
+
+        return OkPaginated(result);
+
     }
 }
