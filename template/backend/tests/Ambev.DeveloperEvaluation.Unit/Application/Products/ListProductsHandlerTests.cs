@@ -3,7 +3,6 @@ using Ambev.DeveloperEvaluation.Application.Products.ListProducts;
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Unit.Application.Products.TestData;
-using Ambev.DeveloperEvaluation.Unit.Application.TestProvider;
 using AutoMapper;
 using FluentAssertions;
 using NSubstitute;
