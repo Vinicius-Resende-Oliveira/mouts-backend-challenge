@@ -22,11 +22,11 @@ public class ListProductsHandler : IRequestHandler<ListProductsCommand, Paginate
     {
         var query = _userRepository.GetAll(cancellationToken).AsNoTracking();
 
-        query = _userRepository.Filter(query, nameof(request.Title), request.Title);
-        query = _userRepository.Filter(query, nameof(request.Description), request.Description);
-        query = _userRepository.Filter(query, nameof(request.Category), request.Category);
-        query = _userRepository.Filter(query, nameof(request.Image), request.Image);
-        query = _userRepository.FilterRange(query, nameof(request.MinPrice), request.MinPrice, request.MaxPrice);
+        query = _userRepository.Filter(query, nameof(GetProductResult.Title), request.Title);
+        query = _userRepository.Filter(query, nameof(GetProductResult.Description), request.Description);
+        query = _userRepository.Filter(query, nameof(GetProductResult.Category), request.Category);
+        query = _userRepository.Filter(query, nameof(GetProductResult.Image), request.Image);
+        query = _userRepository.FilterRange(query, nameof(GetProductResult.Price), request.MinPrice, request.MaxPrice);
 
         if (!string.IsNullOrWhiteSpace(request.Order))
         {
