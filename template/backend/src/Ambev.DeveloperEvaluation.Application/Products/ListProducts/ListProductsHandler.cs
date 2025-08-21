@@ -47,6 +47,6 @@ public class ListProductsHandler : IRequestHandler<ListProductsCommand, Paginate
         }
 
         var getProductList = _mapper.ProjectTo<GetProductResult>(query);
-        return await ListProductsResponse.CreateAsync(getProductList, request.Page, request.Size);
+        return ListProductsResponse.Create(getProductList, request.Page, request.Size);
     }
 }

@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using Ambev.DeveloperEvaluation.Application.Products.Common;
+using Ambev.DeveloperEvaluation.Domain.Validation;
+using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
 
@@ -22,5 +24,6 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
         RuleFor(product => product.Description).NotEmpty().MinimumLength(1).MaximumLength(2000);
         RuleFor(product => product.Category).NotEmpty().MinimumLength(3).MaximumLength(100);
         RuleFor(product => product.Image).NotEmpty().MinimumLength(3).MaximumLength(250);
+        RuleFor(product => product.Rating).SetValidator(new BaseRatingValidator());
     }
 }

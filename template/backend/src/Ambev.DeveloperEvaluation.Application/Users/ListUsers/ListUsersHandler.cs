@@ -52,6 +52,6 @@ public class ListUsersHandler : IRequestHandler<ListUsersCommand, PaginatedList<
         }
       
         var getUserList = _mapper.ProjectTo<GetUserResult>(query);
-        return await ListUsersResponse.CreateAsync(getUserList, request.Page, request.Size);
+        return ListUsersResponse.Create(getUserList, request.Page, request.Size);
     }
 }
