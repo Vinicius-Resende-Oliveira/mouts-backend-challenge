@@ -24,6 +24,8 @@ public class CartConfiguration : IEntityTypeConfiguration<Cart>
         builder.HasMany(e => e.Products)
             .WithOne(e => e.Cart)
             .HasForeignKey(e => e.CartId);
+
+        builder.Navigation(x => x.Products);
     }
 }
 

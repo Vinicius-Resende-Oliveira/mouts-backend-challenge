@@ -1,5 +1,4 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Products.Common;
-using Ambev.DeveloperEvaluation.Application.Products.UpdateProduct;
 using Ambev.DeveloperEvaluation.Common.Validation;
 using MediatR;
 

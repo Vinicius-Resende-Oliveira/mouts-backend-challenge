@@ -9,4 +9,9 @@ public class Cart : BaseEntity
     public DateTime Date { get; set; }
 
     public ICollection<CartItem>? Products { get; set; }
+
+    public Cart()
+    {
+        CreatedAt = DateTime.UtcNow;
+    }
 }

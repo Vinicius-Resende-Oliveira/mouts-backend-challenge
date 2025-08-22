@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Repositories;
+﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
@@ -41,6 +42,7 @@ public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, Update
             throw new KeyNotFoundException($"Product with id {command.Id} not found");
 
         _mapper.Map(command, product);
+        product.Update();
 
         _productRepository.Update(product);
         await _productRepository.SaveChangesAsync(cancellationToken);

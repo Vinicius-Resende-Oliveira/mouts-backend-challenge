@@ -6,6 +6,16 @@ public class BaseEntity : IComparable<BaseEntity>
 {
     public Guid Id { get; set; }
 
+    /// <summary>
+    /// Gets the date and time when the entity was created.
+    /// </summary>
+    public DateTime CreatedAt { get; set; }
+
+    /// <summary>
+    /// Gets the date and time of the last update to the entity's information.
+    /// </summary>
+    public DateTime? UpdatedAt { get; set; }
+
     public Task<IEnumerable<ValidationErrorDetail>> ValidateAsync()
     {
         return Validator.ValidateAsync(this);
@@ -19,5 +29,14 @@ public class BaseEntity : IComparable<BaseEntity>
         }
 
         return other!.Id.CompareTo(Id);
+    }
+
+    /// <summary>
+    /// Activates the user account.
+    /// Changes the user's status to Active.
+    /// </summary>
+    public void Update()
+    {
+        UpdatedAt = DateTime.UtcNow;
     }
 }

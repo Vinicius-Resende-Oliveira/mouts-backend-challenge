@@ -9,24 +9,24 @@ namespace Ambev.DeveloperEvaluation.Application.Products.ListProducts;
 
 public class ListProductsHandler : IRequestHandler<ListProductsCommand, PaginatedList<GetProductResult>>
 {
-    private readonly IProductRepository _userRepository;
+    private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
 
-    public ListProductsHandler(IProductRepository userRepository, IMapper mapper)
+    public ListProductsHandler(IProductRepository productRepository, IMapper mapper)
     {
-        _userRepository = userRepository;
+        _productRepository = productRepository;
         _mapper = mapper;
     }
 
     public async Task<PaginatedList<GetProductResult>> Handle(ListProductsCommand request, CancellationToken cancellationToken)
     {
-        var query = _userRepository.GetAll(cancellationToken).AsNoTracking();
+        var query = _productRepository.GetAll(cancellationToken).AsNoTracking();
 
-        query = _userRepository.Filter(query, nameof(GetProductResult.Title), request.Title);
-        query = _userRepository.Filter(query, nameof(GetProductResult.Description), request.Description);
-        query = _userRepository.Filter(query, nameof(GetProductResult.Category), request.Category);
-        query = _userRepository.Filter(query, nameof(GetProductResult.Image), request.Image);
-        query = _userRepository.FilterRange(query, nameof(GetProductResult.Price), request.MinPrice, request.MaxPrice);
+        query = _productRepository.Filter(query, nameof(GetProductResult.Title), request.Title);
+        query = _productRepository.Filter(query, nameof(GetProductResult.Description), request.Description);
+        query = _productRepository.Filter(query, nameof(GetProductResult.Category), request.Category);
+        query = _productRepository.Filter(query, nameof(GetProductResult.Image), request.Image);
+        query = _productRepository.FilterRange(query, nameof(GetProductResult.Price), request.MinPrice, request.MaxPrice);
 
         if (!string.IsNullOrWhiteSpace(request.Order))
         {
@@ -43,7 +43,7 @@ public class ListProductsHandler : IRequestHandler<ListProductsCommand, Paginate
                 .Where(t => !string.IsNullOrWhiteSpace(t.field))
                 .ToArray();
 
-            query = _userRepository.OrderByFields(query, orders);
+            query = _productRepository.OrderByFields(query, orders);
         }
 
         var getProductList = _mapper.ProjectTo<GetProductResult>(query);

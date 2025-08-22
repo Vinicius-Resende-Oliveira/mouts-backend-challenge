@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Common.Security;
+using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using FluentValidation;
@@ -45,6 +46,7 @@ public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, UpdateUserRe
         
         _mapper.Map(command, user);
         user.Password = _passwordHasher.HashPassword(command.Password);
+        user.Update();
 
         _userRepository.Update(user);
         await _userRepository.SaveChangesAsync(cancellationToken);

@@ -13,16 +13,6 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         public Rating Rating { get; set; }
 
         /// <summary>
-        /// Gets the date and time when the product was created.
-        /// </summary>
-        public DateTime CreatedAt { get; set; }
-
-        /// <summary>
-        /// Gets the date and time of the last update to the product's information.
-        /// </summary>
-        public DateTime? UpdatedAt { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the Product class.
         /// </summary>
         public Product()
