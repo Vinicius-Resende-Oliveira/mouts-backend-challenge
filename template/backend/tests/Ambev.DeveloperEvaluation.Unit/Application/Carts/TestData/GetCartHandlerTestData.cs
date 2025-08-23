@@ -17,14 +17,14 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Carts.TestData
             return new GetCartCommand(Guid.Empty);
         }
 
-        public static GetCartResult GenerateValidResult(Cart product)
+        public static GetCartResult GenerateValidResult(Cart cart)
         {
             return new GetCartResult
             {
-                Id = product.Id,
-                UserId = product.UserId,
-                Date = product.Date,
-                Products = product.Products?.Select(p => new BaseCartItem
+                Id = cart.Id,
+                UserId = cart.UserId,
+                Date = cart.Date,
+                Products = cart.Products?.Select(p => new BaseCartItem
                 {
                     ProductId = p.ProductId,
                     Quantity = p.Quantity,

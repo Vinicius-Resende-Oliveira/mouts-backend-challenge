@@ -46,12 +46,12 @@ public class SaleItem : BaseEntity
         CreatedAt = DateTime.UtcNow;
     }
 
-
-    public SaleItem(Guid productId, int quantity, decimal unitPrice)
+    public SaleItem(Guid productId, int quantity, decimal unitPrice, bool update = false)
     {
         ProductId = productId;
         SetQuantityAndPrice(quantity, unitPrice);
         CreatedAt = DateTime.UtcNow;
+        UpdatedAt = update ? DateTime.UtcNow : null;
     }
 
     /// <summary>

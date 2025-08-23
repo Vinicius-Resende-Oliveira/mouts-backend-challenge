@@ -10,32 +10,32 @@ public class Sale : BaseEntity
     /// </summary>
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int SaleNumber { get; private set; }
+    public int SaleNumber { get; set; }
 
     /// <summary>
     /// Date and time when the sale was made
     /// </summary>
-    public DateTime SaleDate { get; private set; }
+    public DateTime SaleDate { get; set; }
 
     /// <summary>
     /// Customer name or identifier
     /// </summary>
-    public string Customer { get; private set; } = string.Empty;
+    public string Customer { get; set; } = string.Empty;
 
     /// <summary>
     /// Branch where the sale was made
     /// </summary>
-    public string Branch { get; private set; } = string.Empty;
+    public string Branch { get; set; } = string.Empty;
 
     /// <summary>
     /// Indicates if the sale was cancelled
     /// </summary>
-    public bool IsCancelled { get; private set; }
+    public bool IsCancelled { get; set; }
 
     /// <summary>
     /// List of items in the sale
     /// </summary>
-    public List<SaleItem> Items { get; private set; } = new();
+    public List<SaleItem> Items { get; set; } = new();
 
     public Sale() { }
 

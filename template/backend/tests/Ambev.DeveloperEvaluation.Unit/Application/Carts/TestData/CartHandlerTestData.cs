@@ -37,4 +37,33 @@ public static class CartHandlerTestData
         }
         return list;
     }
+
+    public static Cart GenerateValidCartWithProducts()
+    {
+        var faker = new Bogus.Faker();
+        var products = new List<CartItem>();
+        for (int i = 0; i < 2; i++)
+        {
+            var product = new Product
+            {
+                Id = Guid.NewGuid(),
+                Title = faker.Commerce.ProductName(),
+                Price = faker.Random.Decimal(10, 100)
+            };
+            products.Add(new CartItem
+            {
+                Id = Guid.NewGuid(),
+                ProductId = product.Id,
+                Product = product,
+                Quantity = faker.Random.Int(1, 5)
+            });
+        }
+        return new Cart
+        {
+            Id = Guid.NewGuid(),
+            UserId = Guid.NewGuid(),
+            Date = DateTime.UtcNow,
+            Products = products
+        };
+    }
 }

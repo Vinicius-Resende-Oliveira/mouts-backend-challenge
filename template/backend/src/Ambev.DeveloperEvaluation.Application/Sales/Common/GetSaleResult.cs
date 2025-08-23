@@ -13,7 +13,7 @@ public class GetSaleResult
     /// <summary>
     /// Sale number
     /// </summary>
-    public int SaleNumber { get; private set; }
+    public int SaleNumber { get; set; }
 
     /// <summary>
     /// Date and time when the sale was made
@@ -51,7 +51,7 @@ public class GetSaleItemResult
     /// <summary>
     /// Reference to the product
     /// </summary>
-    public Guid ProductId { get; private set; }
+    public Guid ProductId { get; set; }
 
     /// <summary>
     /// Quantity of the product sold
@@ -69,5 +69,5 @@ public class GetSaleItemResult
     /// <summary>
     /// Discount percentage applied to this item (0.10 = 10%)
     /// </summary>
-    public decimal Discount { get; private set; }
+    public decimal Discount { get; set; }
 }

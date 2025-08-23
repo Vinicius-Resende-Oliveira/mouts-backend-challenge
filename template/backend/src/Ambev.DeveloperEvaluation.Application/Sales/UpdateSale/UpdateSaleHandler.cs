@@ -57,7 +57,8 @@ public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleRe
                 new SaleItem(
                     item.ProductId, 
                     item.Quantity, 
-                    Items.First(p => p.Id == item.ProductId).Price
+                    Items.First(p => p.Id == item.ProductId).Price,
+                    true
                 )
             ).ToList();
 
