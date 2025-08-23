@@ -19,6 +19,7 @@ public interface IBaseRepository<TEntity> where TEntity : BaseEntity
     IQueryable<TEntity> NumericFilter(IQueryable<TEntity> queryable, string property, decimal? filter);
     IQueryable<TEntity> DateFilter(IQueryable<TEntity> queryable, string property, DateTime? filter);
     IQueryable<TEntity> OrderByFields(IQueryable<TEntity> queryable, params (string field, bool desc)[] orders);
+    IQueryable<TEntity> BoolFilter(IQueryable<TEntity> queryable, string property, bool? filter);
 
     Task SaveChangesAsync(CancellationToken cancellationToken);
 }

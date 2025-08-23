@@ -23,11 +23,6 @@ public class Sale : BaseEntity
     public string Customer { get; private set; } = string.Empty;
 
     /// <summary>
-    /// Total value of the sale
-    /// </summary>
-    public decimal TotalValue => Items.Sum(i => i.TotalValue);
-
-    /// <summary>
     /// Branch where the sale was made
     /// </summary>
     public string Branch { get; private set; } = string.Empty;
@@ -57,5 +52,10 @@ public class Sale : BaseEntity
     public void Cancel()
     {
         IsCancelled = true;
+    }
+
+    public void SetItems(List<SaleItem> items)
+    {
+        Items = items ?? throw new ArgumentNullException(nameof(items), "Items cannot be null.");
     }
 }

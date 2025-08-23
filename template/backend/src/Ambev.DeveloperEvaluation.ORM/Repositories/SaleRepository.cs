@@ -20,6 +20,7 @@ public class SaleRepository : BaseRepository<Sale>, ISaleRepository
     {
         return await context.Sales
             .Include(c => c.Items)
+            .Include("Items.Product")
             .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 }

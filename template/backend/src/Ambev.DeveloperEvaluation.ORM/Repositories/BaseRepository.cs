@@ -99,6 +99,11 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         return queryable.FilterNumeric(property, filter);
     }
 
+    public IQueryable<TEntity> BoolFilter(IQueryable<TEntity> queryable, string property, bool? filter)
+    {
+        return queryable.FilterBool(property, filter);
+    }
+
     public IQueryable<TEntity> DateFilter(IQueryable<TEntity> queryable, string property, DateTime? filter)
     {
 

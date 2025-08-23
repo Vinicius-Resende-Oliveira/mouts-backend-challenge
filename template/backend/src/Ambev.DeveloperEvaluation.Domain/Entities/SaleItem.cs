@@ -46,6 +46,14 @@ public class SaleItem : BaseEntity
         CreatedAt = DateTime.UtcNow;
     }
 
+
+    public SaleItem(Guid productId, int quantity, decimal unitPrice)
+    {
+        ProductId = productId;
+        SetQuantityAndPrice(quantity, unitPrice);
+        CreatedAt = DateTime.UtcNow;
+    }
+
     /// <summary>
     /// Sets quantity and unit price, then calculates discount and total value.
     /// </summary>

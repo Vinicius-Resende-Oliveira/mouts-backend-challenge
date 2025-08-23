@@ -61,6 +61,13 @@ public static class FilterHelper
         return queryable.Where($"{property} == @0", filter.Value);
     }
 
+    public static IQueryable<TEntity> FilterBool<TEntity>(this IQueryable<TEntity> queryable, string property, bool? filter)
+    {
+        if (string.IsNullOrWhiteSpace(property) || !filter.HasValue) return queryable;
+
+        return queryable.Where($"{property} == @0", filter.Value);
+    }
+
     public static IQueryable<TEntity> FilterDate<TEntity>(this IQueryable<TEntity> queryable, string property, DateTime? filter)
     {
         if (string.IsNullOrWhiteSpace(property) || !filter.HasValue) return queryable;

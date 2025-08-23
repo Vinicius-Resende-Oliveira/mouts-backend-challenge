@@ -20,6 +20,7 @@ public class CartRepository : BaseRepository<Cart>, ICartRepository
     {
         return await context.Carts
             .Include(c => c.Products)
+            .Include("Products.Product")
             .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 }
