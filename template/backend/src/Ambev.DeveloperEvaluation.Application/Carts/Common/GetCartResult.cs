@@ -1,8 +1,6 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Common;
+﻿namespace Ambev.DeveloperEvaluation.Application.Carts.Common;
 
-namespace Ambev.DeveloperEvaluation.Application.Carts.Common;
-
-public class GetCartResult : BaseEntity
+public class GetCartResult
 {
     public Guid UserId { get; set; }
     public DateTime Date { get; set; }

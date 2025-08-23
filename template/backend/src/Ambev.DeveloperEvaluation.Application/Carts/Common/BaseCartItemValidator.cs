@@ -13,6 +13,8 @@ public class BaseCartItemValidator : AbstractValidator<BaseCartItem>
         RuleFor(cart => cart.Quantity)
             .NotEmpty()
             .GreaterThan(0)
-            .WithMessage("Quantity must be greather 0.");
+            .WithMessage("Quantity must be greather 0.")
+            .LessThan(21)
+            .WithMessage("Quantity must be less 20.");
     }
 }

@@ -17,13 +17,13 @@ public static class CartItemHandlerTestData
     /// </summary>
     private static readonly Faker<BaseCartItem> createBaseCartItemCommandHandlerFaker = new Faker<BaseCartItem>()
         .RuleFor(u => u.ProductId, f => Guid.NewGuid())
-        .RuleFor(u => u.Quantity, f => f.Random.Int(0,999999));
+        .RuleFor(u => u.Quantity, f => f.Random.Int(1, 20));
 
     private static readonly Faker<CartItem> createCartItemCommandHandlerFaker = new Faker<CartItem>()
         .RuleFor(u => u.ProductId, f => Guid.NewGuid())
         .RuleFor(u => u.CreatedAt, f => DateTime.UtcNow)
         .RuleFor(u => u.UpdatedAt, f => DateTime.UtcNow)
-        .RuleFor(u => u.Quantity, f => f.Random.Int(0, 999999));
+        .RuleFor(u => u.Quantity, f => f.Random.Int(1,  20));
 
     /// <summary>
     /// Generates a valid Cart Item entity with randomized data.
