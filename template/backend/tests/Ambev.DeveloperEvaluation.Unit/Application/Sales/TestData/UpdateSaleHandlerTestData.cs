@@ -21,7 +21,7 @@ public static class UpdateSaleHandlerTestData
         .RuleFor(u => u.SaleDate, f => DateTime.UtcNow)
         .RuleFor(u => u.Customer, f => f.Internet.UserName())
         .RuleFor(u => u.Branch, f => f.Commerce.Department())
-        .RuleFor(u => u.Items, f => GenerateListUpdateSaleItemComand(f.Random.Int(0, 99)));
+        .RuleFor(u => u.Items, f => GenerateListUpdateSaleItemComand(f.Random.Int(1, 99)));
 
     private static readonly Faker<UpdateSaleItemCommand> createSaleItemCommandHandlerFaker = new Faker<UpdateSaleItemCommand>()
         .RuleFor(u => u.ProductId, Guid.NewGuid())
