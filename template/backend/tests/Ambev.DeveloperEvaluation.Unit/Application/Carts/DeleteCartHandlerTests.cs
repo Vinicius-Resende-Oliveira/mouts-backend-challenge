@@ -3,6 +3,7 @@ using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Unit.Application.Carts.TestData;
 using FluentAssertions;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Xunit;
 
@@ -12,11 +13,13 @@ public class DeleteCartHandlerTests
 {
     private readonly ICartRepository _cartRepository;
     private readonly DeleteCartHandler _handler;
+    private readonly ILogger<DeleteCartHandler> _logger;
 
     public DeleteCartHandlerTests()
     {
         _cartRepository = Substitute.For<ICartRepository>();
-        _handler = new DeleteCartHandler(_cartRepository);
+        _logger = Substitute.For<ILogger<DeleteCartHandler>>();
+        _handler = new DeleteCartHandler(_cartRepository, _logger);
     }
 
     [Fact(DisplayName = "Given a valid command When deleting cart Then returns success")]

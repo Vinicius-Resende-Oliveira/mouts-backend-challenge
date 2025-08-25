@@ -6,6 +6,7 @@ using Ambev.DeveloperEvaluation.Unit.Application.Products.TestData;
 using AutoMapper;
 using FluentAssertions;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Xunit;
 
@@ -15,13 +16,15 @@ public class GetProductHandlerTests
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger<GetProductQueryHandler> _logger;
     private readonly GetProductQueryHandler _handler;
 
     public GetProductHandlerTests()
     {
         _productRepository = Substitute.For<IProductRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new GetProductQueryHandler(_productRepository, _mapper);
+        _logger = Substitute.For<ILogger<GetProductQueryHandler>>();
+        _handler = new GetProductQueryHandler(_productRepository, _mapper, _logger);
     }
 
     [Fact(DisplayName = "Valid ID Given When fetch product Then return product")]

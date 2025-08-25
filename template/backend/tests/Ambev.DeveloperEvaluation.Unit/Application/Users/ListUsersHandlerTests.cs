@@ -1,15 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Ambev.DeveloperEvaluation.Application.Common;
-using Ambev.DeveloperEvaluation.Application.Users.Common;
+﻿using Ambev.DeveloperEvaluation.Application.Users.Common;
 using Ambev.DeveloperEvaluation.Application.Users.ListUsers;
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Unit.Application.Users.TestData;
 using AutoMapper;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Xunit;
 
@@ -19,13 +15,15 @@ public class ListUsersHandlerTests
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger<ListUsersQueryHandler> _logger;
     private readonly ListUsersQueryHandler _handler;
 
     public ListUsersHandlerTests()
     {
         _userRepository = Substitute.For<IUserRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new ListUsersQueryHandler(_userRepository, _mapper);
+        _logger = Substitute.For<ILogger<ListUsersQueryHandler>>();
+        _handler = new ListUsersQueryHandler(_userRepository, _mapper, _logger);
     }
 
     [Fact(DisplayName = "Handle should return paginated list of users when query is valid")]

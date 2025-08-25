@@ -6,6 +6,7 @@ using Ambev.DeveloperEvaluation.Unit.Application.Sales.TestData;
 using AutoMapper;
 using FluentAssertions;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Xunit;
 
@@ -16,6 +17,7 @@ public class CreateSaleHandlerTests
     private readonly ISaleRepository _saleRepository;
     private readonly ICartRepository _cartRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger<CreateSaleHandler> _logger;
     private readonly CreateSaleHandler _handler;
 
     public CreateSaleHandlerTests()
@@ -23,7 +25,8 @@ public class CreateSaleHandlerTests
         _saleRepository = Substitute.For<ISaleRepository>();
         _cartRepository = Substitute.For<ICartRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new CreateSaleHandler(_saleRepository, _cartRepository, _mapper);
+        _logger = Substitute.For<ILogger<CreateSaleHandler>>();
+        _handler = new CreateSaleHandler(_saleRepository, _cartRepository, _mapper, _logger);
     }
 
     [Fact(DisplayName = "Given a valid command When creating sale Then returns created sale result")]

@@ -5,6 +5,7 @@ using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Ambev.DeveloperEvaluation.Application.Users.ListUsers;
 
@@ -12,15 +13,19 @@ public class ListUsersQueryHandler : IRequestHandler<ListUsersQuery, PaginatedLi
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger<ListUsersQueryHandler> _logger;
 
-    public ListUsersQueryHandler(IUserRepository userRepository, IMapper mapper)
+    public ListUsersQueryHandler(IUserRepository userRepository, IMapper mapper, ILogger<ListUsersQueryHandler> logger)
     {
         _userRepository = userRepository;
         _mapper = mapper;
+        _logger = logger;
+        _logger.BeginScope("Begin ListUsersQueryHandler");
     }
 
     public async Task<PaginatedList<GetUserResult>> Handle(ListUsersQuery request, CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Handling ListUsersQuery");
         var query = _userRepository.GetAll(cancellationToken).AsNoTracking();
 
         query = _userRepository.Filter(query, nameof(request.Phone), request.Phone);
@@ -32,6 +37,7 @@ public class ListUsersQueryHandler : IRequestHandler<ListUsersQuery, PaginatedLi
 
         if (request.Status != UserStatus.Unknown)
             query = _userRepository.Filter(query, nameof(request.Status), request.Status.ToString());
+        _logger.LogInformation("Filter query");
 
         if (!string.IsNullOrWhiteSpace(request.Order))
         {
@@ -50,8 +56,10 @@ public class ListUsersQueryHandler : IRequestHandler<ListUsersQuery, PaginatedLi
 
             query = _userRepository.OrderByFields(query, orders);
         }
-      
+        _logger.LogInformation("Order query");
+
         var getUserList = _mapper.ProjectTo<GetUserResult>(query);
+        _logger.LogInformation("Mapped GetUserResult");
         return ListUsersResponse.Create(getUserList, request.Page, request.Size);
     }
 }

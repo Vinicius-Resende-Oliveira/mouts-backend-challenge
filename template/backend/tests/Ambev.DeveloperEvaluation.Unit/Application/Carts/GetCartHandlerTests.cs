@@ -6,6 +6,7 @@ using Ambev.DeveloperEvaluation.Unit.Application.Carts.TestData;
 using AutoMapper;
 using FluentAssertions;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Xunit;
 
@@ -15,13 +16,15 @@ public class GetCartHandlerTests
 {
     private readonly ICartRepository _cartRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger<GetCartQueryHandler> _logger;
     private readonly GetCartQueryHandler _handler;
 
     public GetCartHandlerTests()
     {
         _cartRepository = Substitute.For<ICartRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new GetCartQueryHandler(_cartRepository, _mapper);
+        _logger = Substitute.For<ILogger<GetCartQueryHandler>>();
+        _handler = new GetCartQueryHandler(_cartRepository, _mapper, _logger);
     }
 
     [Fact(DisplayName = "Given a valid command When getting cart Then returns cart result")]

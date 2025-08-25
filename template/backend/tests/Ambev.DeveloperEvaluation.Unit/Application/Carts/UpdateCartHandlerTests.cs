@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Carts.Common;
+using Ambev.DeveloperEvaluation.Application.Carts.CreateCart;
 using Ambev.DeveloperEvaluation.Application.Carts.UpdateCart;
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
@@ -6,6 +7,7 @@ using Ambev.DeveloperEvaluation.Unit.Application.Carts.TestData;
 using AutoMapper;
 using FluentAssertions;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Xunit;
 
@@ -15,13 +17,15 @@ public class UpdateCartHandlerTests
 {
     private readonly ICartRepository _cartRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger<UpdateCartHandler> _logger;
     private readonly UpdateCartHandler _handler;
 
     public UpdateCartHandlerTests()
     {
         _cartRepository = Substitute.For<ICartRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new UpdateCartHandler(_cartRepository, _mapper);
+        _logger = Substitute.For<ILogger<UpdateCartHandler>>();
+        _handler = new UpdateCartHandler(_cartRepository, _mapper, _logger);
     }
 
     [Fact(DisplayName = "Dado comando válido Quando atualizar carrinho Então retorna sucesso")]

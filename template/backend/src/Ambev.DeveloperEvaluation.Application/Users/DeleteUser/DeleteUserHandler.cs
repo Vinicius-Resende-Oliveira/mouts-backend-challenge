@@ -1,6 +1,7 @@
-using MediatR;
-using FluentValidation;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Ambev.DeveloperEvaluation.Application.Users.DeleteUser;
 
@@ -10,6 +11,7 @@ namespace Ambev.DeveloperEvaluation.Application.Users.DeleteUser;
 public class DeleteUserHandler : IRequestHandler<DeleteUserCommand, DeleteUserResponse>
 {
     private readonly IUserRepository _userRepository;
+    private readonly ILogger<DeleteUserHandler> _logger;
 
     /// <summary>
     /// Initializes a new instance of DeleteUserHandler
@@ -17,9 +19,12 @@ public class DeleteUserHandler : IRequestHandler<DeleteUserCommand, DeleteUserRe
     /// <param name="userRepository">The user repository</param>
     /// <param name="validator">The validator for DeleteUserCommand</param>
     public DeleteUserHandler(
-        IUserRepository userRepository)
+        IUserRepository userRepository,
+        ILogger<DeleteUserHandler> logger)
     {
         _userRepository = userRepository;
+        _logger = logger;
+        _logger.BeginScope("Begin DeleteUserHandler");
     }
 
     /// <summary>
@@ -30,15 +35,19 @@ public class DeleteUserHandler : IRequestHandler<DeleteUserCommand, DeleteUserRe
     /// <returns>The result of the delete operation</returns>
     public async Task<DeleteUserResponse> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Handling DeleteUserCommand");
         var validator = new DeleteUserValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (!validationResult.IsValid)
             throw new ValidationException(validationResult.Errors);
+        _logger.LogInformation("Is Valid command");
 
         var success = await _userRepository.DeleteAsync(request.Id, cancellationToken);
         if (!success)
             throw new KeyNotFoundException($"User with ID {request.Id} not found");
+
+        _logger.LogInformation("User deleted {Id}", request.Id);
 
         return new DeleteUserResponse { Success = true };
     }

@@ -5,6 +5,7 @@ using Ambev.DeveloperEvaluation.Unit.Application.Sales.TestData;
 using AutoMapper;
 using FluentAssertions;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Xunit;
 
@@ -15,6 +16,7 @@ public class UpdateSaleHandlerTests
     private readonly ISaleRepository _saleRepository;
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger<UpdateSaleHandler> _logger;
     private readonly UpdateSaleHandler _handler;
 
     public UpdateSaleHandlerTests()
@@ -22,7 +24,8 @@ public class UpdateSaleHandlerTests
         _saleRepository = Substitute.For<ISaleRepository>();
         _productRepository = Substitute.For<IProductRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new UpdateSaleHandler(_saleRepository, _productRepository, _mapper);
+        _logger = Substitute.For<ILogger<UpdateSaleHandler>>();
+        _handler = new UpdateSaleHandler(_saleRepository, _productRepository, _mapper, _logger);
     }
 
     [Fact(DisplayName = "Given a valid command When updating sale Then returns updated sale result")]

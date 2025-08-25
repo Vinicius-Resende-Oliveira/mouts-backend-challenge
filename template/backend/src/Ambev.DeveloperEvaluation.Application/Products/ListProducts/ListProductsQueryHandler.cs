@@ -4,6 +4,7 @@ using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.ListProducts;
 
@@ -11,15 +12,19 @@ public class ListProductsQueryHandler : IRequestHandler<ListProductsQuery, Pagin
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger<ListProductsQueryHandler> _logger;
 
-    public ListProductsQueryHandler(IProductRepository productRepository, IMapper mapper)
+    public ListProductsQueryHandler(IProductRepository productRepository, IMapper mapper, ILogger<ListProductsQueryHandler> logger)
     {
         _productRepository = productRepository;
         _mapper = mapper;
+        _logger = logger;
+        _logger.BeginScope("Begin ListProductsQueryHandler");
     }
 
     public async Task<PaginatedList<GetProductResult>> Handle(ListProductsQuery request, CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Handling ListProductsQuery");
         var query = _productRepository.GetAll(cancellationToken).AsNoTracking();
 
         query = _productRepository.Filter(query, nameof(GetProductResult.Title), request.Title);
@@ -28,6 +33,7 @@ public class ListProductsQueryHandler : IRequestHandler<ListProductsQuery, Pagin
         query = _productRepository.Filter(query, nameof(GetProductResult.Image), request.Image);
         query = _productRepository.FilterRange(query, nameof(GetProductResult.Price), request.MinPrice, request.MaxPrice);
 
+        _logger.LogInformation("Filter query");
         if (!string.IsNullOrWhiteSpace(request.Order))
         {
             var orders = request.Order
@@ -45,8 +51,11 @@ public class ListProductsQueryHandler : IRequestHandler<ListProductsQuery, Pagin
 
             query = _productRepository.OrderByFields(query, orders);
         }
+        _logger.LogInformation("Order query");
 
         var getProductList = _mapper.ProjectTo<GetProductResult>(query);
+        _logger.LogInformation("Mapped GetProductResult");
+
         return ListProductsResponse.Create(getProductList, request.Page, request.Size);
     }
 }

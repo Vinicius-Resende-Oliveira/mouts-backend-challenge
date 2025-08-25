@@ -3,6 +3,7 @@ using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
 
@@ -13,6 +14,7 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, GetProduc
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger<GetProductQueryHandler> _logger;
 
     /// <summary>
     /// Initializes a new instance of GetProductHandler
@@ -22,10 +24,13 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, GetProduc
     /// <param name="validator">The validator for GetProductCommand</param>
     public GetProductQueryHandler(
         IProductRepository productRepository,
-        IMapper mapper)
+        IMapper mapper,
+        ILogger<GetProductQueryHandler> logger)
     {
         _productRepository = productRepository;
         _mapper = mapper;
+        _logger = logger;
+        _logger.BeginScope("Begin GetProductQueryHandler");
     }
 
     /// <summary>
@@ -36,16 +41,19 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, GetProduc
     /// <returns>The product details if found</returns>
     public async Task<GetProductResult> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Handling GetProductQuery");
         var validator = new GetProductQueryValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (!validationResult.IsValid)
             throw new ValidationException(validationResult.Errors);
+        _logger.LogInformation("Is Valid command");
 
         var product = await _productRepository.GetByIdAsync(request.Id, cancellationToken);
         if (product == null)
             throw new KeyNotFoundException($"Product with ID {request.Id} not found");
 
+        _logger.LogInformation("Product get {Id}", request.Id);
         return _mapper.Map<GetProductResult>(product);
     }
 }

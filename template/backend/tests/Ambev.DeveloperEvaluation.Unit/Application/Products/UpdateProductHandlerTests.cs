@@ -5,6 +5,7 @@ using Ambev.DeveloperEvaluation.Unit.Application.Products.TestData;
 using AutoMapper;
 using FluentAssertions;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Xunit;
 
@@ -14,13 +15,15 @@ public class UpdateProductHandlerTests
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger<UpdateProductHandler> _logger;
     private readonly UpdateProductHandler _handler;
 
     public UpdateProductHandlerTests()
     {
         _productRepository = Substitute.For<IProductRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new UpdateProductHandler(_productRepository, _mapper);
+        _logger = Substitute.For<ILogger<UpdateProductHandler>>();
+        _handler = new UpdateProductHandler(_productRepository, _mapper, _logger);
     }
 
     [Fact(DisplayName = "Given valid data When update product Then return success response")]

@@ -3,6 +3,7 @@ using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Unit.Application.Users.TestData;
 using FluentAssertions;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Xunit;
 
@@ -12,11 +13,13 @@ public class DeleteUserHandlerTests
 {
     private readonly IUserRepository _userRepository;
     private readonly DeleteUserHandler _handler;
+    private readonly ILogger<DeleteUserHandler> _logger;
 
     public DeleteUserHandlerTests()
     {
         _userRepository = Substitute.For<IUserRepository>();
-        _handler = new DeleteUserHandler(_userRepository);
+        _logger = Substitute.For<ILogger<DeleteUserHandler>>();
+        _handler = new DeleteUserHandler(_userRepository, _logger);
     }
 
     [Fact(DisplayName = "Given a valid command When deleting user Then returns success")]

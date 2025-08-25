@@ -5,6 +5,7 @@ using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Unit.Application.Carts.TestData;
 using AutoMapper;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Xunit;
 
@@ -14,13 +15,15 @@ public class ListCartsHandlerTests
 {
     private readonly ICartRepository _cartRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger<ListCartsQueryHandler> _logger;
     private readonly ListCartsQueryHandler _handler;
 
     public ListCartsHandlerTests()
     {
         _cartRepository = Substitute.For<ICartRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new ListCartsQueryHandler(_cartRepository, _mapper);
+        _logger = Substitute.For<ILogger<ListCartsQueryHandler>>();
+        _handler = new ListCartsQueryHandler(_cartRepository, _mapper, _logger);
     }
 
     [Fact(DisplayName = "Dado filtros e paginação Quando listar carrinhos Então retorna lista paginada")]

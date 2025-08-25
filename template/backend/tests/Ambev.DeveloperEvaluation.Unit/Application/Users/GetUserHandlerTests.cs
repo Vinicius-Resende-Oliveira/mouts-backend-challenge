@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Ambev.DeveloperEvaluation.Application.Users.Common;
+﻿using Ambev.DeveloperEvaluation.Application.Users.Common;
 using Ambev.DeveloperEvaluation.Application.Users.GetUser;
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Enums;
@@ -10,6 +8,7 @@ using Ambev.DeveloperEvaluation.Unit.Application.Users.TestData;
 using AutoMapper;
 using FluentAssertions;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Xunit;
 
@@ -19,13 +18,15 @@ public class GetUserHandlerTests
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger<GetUserQueryHandler> _logger;
     private readonly GetUserQueryHandler _handler;
 
     public GetUserHandlerTests()
     {
         _userRepository = Substitute.For<IUserRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new GetUserQueryHandler(_userRepository, _mapper);
+        _logger = Substitute.For<ILogger<GetUserQueryHandler>>();
+        _handler = new GetUserQueryHandler(_userRepository, _mapper, _logger);
     }
 
     [Fact(DisplayName = "Handle should return user details when user exists")]

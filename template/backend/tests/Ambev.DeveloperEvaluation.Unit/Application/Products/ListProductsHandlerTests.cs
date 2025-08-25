@@ -5,6 +5,7 @@ using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Unit.Application.Products.TestData;
 using AutoMapper;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Xunit;
 
@@ -14,13 +15,15 @@ public class ListProductsHandlerTests
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
+    private readonly ILogger<ListProductsQueryHandler> _logger;
     private readonly ListProductsQueryHandler _handler;
 
     public ListProductsHandlerTests()
     {
         _productRepository = Substitute.For<IProductRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new ListProductsQueryHandler(_productRepository, _mapper);
+        _logger = Substitute.For<ILogger<ListProductsQueryHandler>>();
+        _handler = new ListProductsQueryHandler(_productRepository, _mapper, _logger);
     }
 
     [Fact(DisplayName = "Given filters and pagination When listing products Then returns paginated list")]

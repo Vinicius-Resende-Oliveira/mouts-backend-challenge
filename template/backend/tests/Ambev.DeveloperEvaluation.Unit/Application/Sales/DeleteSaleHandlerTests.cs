@@ -3,10 +3,8 @@ using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Unit.Application.Sales.TestData;
 using FluentAssertions;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Ambev.DeveloperEvaluation.Unit.Application.Sales;
@@ -15,11 +13,13 @@ public class DeleteSaleHandlerTests
 {
     private readonly ISaleRepository _saleRepository;
     private readonly DeleteSaleHandler _handler;
+    private readonly ILogger<DeleteSaleHandler> _logger;
 
     public DeleteSaleHandlerTests()
     {
         _saleRepository = Substitute.For<ISaleRepository>();
-        _handler = new DeleteSaleHandler(_saleRepository);
+        _logger = Substitute.For<ILogger<DeleteSaleHandler>>();
+        _handler = new DeleteSaleHandler(_saleRepository, _logger);
     }
 
     [Fact(DisplayName = "Given a valid command When deleting sale Then returns success")]

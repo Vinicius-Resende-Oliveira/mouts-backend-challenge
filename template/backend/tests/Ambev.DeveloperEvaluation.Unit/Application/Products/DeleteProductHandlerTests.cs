@@ -3,6 +3,7 @@ using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Unit.Application.Products.TestData;
 using FluentAssertions;
 using FluentValidation;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Xunit;
 
@@ -12,11 +13,13 @@ public class DeleteProductHandlerTests
 {
     private readonly IProductRepository _productRepository;
     private readonly DeleteProductHandler _handler;
+    private readonly ILogger<DeleteProductHandler> _logger;
 
     public DeleteProductHandlerTests()
     {
         _productRepository = Substitute.For<IProductRepository>();
-        _handler = new DeleteProductHandler(_productRepository);
+        _logger = Substitute.For<ILogger<DeleteProductHandler>>();
+        _handler = new DeleteProductHandler(_productRepository, _logger);
     }
 
     [Fact(DisplayName = "Given valid command When delete product Then return success")]
