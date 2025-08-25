@@ -9,7 +9,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.ListSales
     {
         public ListSalesProfile()
         {
-            CreateMap<ListSalesRequest, ListSalesCommand>();
+            CreateMap<ListSalesRequest, ListSalesQuery>();
             CreateMap<GetSaleResult, GetSaleResponse>();
         }
     }

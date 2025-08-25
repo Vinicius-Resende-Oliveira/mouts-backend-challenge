@@ -14,13 +14,13 @@ public class ListProductsHandlerTests
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
-    private readonly ListProductsHandler _handler;
+    private readonly ListProductsQueryHandler _handler;
 
     public ListProductsHandlerTests()
     {
         _productRepository = Substitute.For<IProductRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new ListProductsHandler(_productRepository, _mapper);
+        _handler = new ListProductsQueryHandler(_productRepository, _mapper);
     }
 
     [Fact(DisplayName = "Given filters and pagination When listing products Then returns paginated list")]
@@ -31,7 +31,7 @@ public class ListProductsHandlerTests
         var results = products.Select(GetProductHandlerTestData.GenerateValidResult).ToList();
         var queryable = products.AsQueryable();
 
-        var command = new ListProductsCommand
+        var command = new ListProductsQuery
         {
             Page = 1,
             Size = 10,
@@ -68,7 +68,7 @@ public class ListProductsHandlerTests
 
         var queryable = products.AsQueryable();
 
-        var command = new ListProductsCommand
+        var command = new ListProductsQuery
         {
             Page = 1,
             Size = 5,
@@ -108,7 +108,7 @@ public class ListProductsHandlerTests
         var products = new List<Product>();
         var queryable = products.AsQueryable();
 
-        var command = new ListProductsCommand
+        var command = new ListProductsQuery
         {
             Page = 1,
             Size = 10

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Users.ListUsers
 {
-    public class ListUsersCommand : PaginatedListRequest, IRequest<PaginatedList<GetUserResult>>
+    public class ListUsersQuery : PaginatedListRequest, IRequest<PaginatedList<GetUserResult>>
     {
         /// <summary>
         /// The user's full name

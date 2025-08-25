@@ -8,18 +8,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ambev.DeveloperEvaluation.Application.Users.ListUsers;
 
-public class ListUsersHandler : IRequestHandler<ListUsersCommand, PaginatedList<GetUserResult>>
+public class ListUsersQueryHandler : IRequestHandler<ListUsersQuery, PaginatedList<GetUserResult>>
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
 
-    public ListUsersHandler(IUserRepository userRepository, IMapper mapper)
+    public ListUsersQueryHandler(IUserRepository userRepository, IMapper mapper)
     {
         _userRepository = userRepository;
         _mapper = mapper;
     }
 
-    public async Task<PaginatedList<GetUserResult>> Handle(ListUsersCommand request, CancellationToken cancellationToken)
+    public async Task<PaginatedList<GetUserResult>> Handle(ListUsersQuery request, CancellationToken cancellationToken)
     {
         var query = _userRepository.GetAll(cancellationToken).AsNoTracking();
 

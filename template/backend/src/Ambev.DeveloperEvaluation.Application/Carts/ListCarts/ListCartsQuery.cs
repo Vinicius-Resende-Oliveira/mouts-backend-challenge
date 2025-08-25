@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Carts.ListCarts;
 
-public class ListCartsCommand : PaginatedListRequest, IRequest<PaginatedList<GetCartResult>>
+public class ListCartsQuery : PaginatedListRequest, IRequest<PaginatedList<GetCartResult>>
 {
     public Guid? UserId { get; set; }
     public DateTime? MinDate { get; set; }

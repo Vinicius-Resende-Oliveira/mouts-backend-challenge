@@ -7,18 +7,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ambev.DeveloperEvaluation.Application.Carts.ListCarts;
 
-public class ListCartsHandler : IRequestHandler<ListCartsCommand, PaginatedList<GetCartResult>>
+public class ListCartsQueryHandler : IRequestHandler<ListCartsQuery, PaginatedList<GetCartResult>>
 {
     private readonly ICartRepository _cartRepository;
     private readonly IMapper _mapper;
 
-    public ListCartsHandler(ICartRepository cartRepository, IMapper mapper)
+    public ListCartsQueryHandler(ICartRepository cartRepository, IMapper mapper)
     {
         _cartRepository = cartRepository;
         _mapper = mapper;
     }
 
-    public async Task<PaginatedList<GetCartResult>> Handle(ListCartsCommand request, CancellationToken cancellationToken)
+    public async Task<PaginatedList<GetCartResult>> Handle(ListCartsQuery request, CancellationToken cancellationToken)
     {
         var query = _cartRepository.GetAll(cancellationToken).AsNoTracking();
 

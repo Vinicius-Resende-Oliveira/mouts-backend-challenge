@@ -19,13 +19,13 @@ public class GetUserHandlerTests
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
-    private readonly GetUserHandler _handler;
+    private readonly GetUserQueryHandler _handler;
 
     public GetUserHandlerTests()
     {
         _userRepository = Substitute.For<IUserRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new GetUserHandler(_userRepository, _mapper);
+        _handler = new GetUserQueryHandler(_userRepository, _mapper);
     }
 
     [Fact(DisplayName = "Handle should return user details when user exists")]

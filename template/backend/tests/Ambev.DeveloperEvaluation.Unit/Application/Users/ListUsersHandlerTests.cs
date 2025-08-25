@@ -19,13 +19,13 @@ public class ListUsersHandlerTests
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
-    private readonly ListUsersHandler _handler;
+    private readonly ListUsersQueryHandler _handler;
 
     public ListUsersHandlerTests()
     {
         _userRepository = Substitute.For<IUserRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new ListUsersHandler(_userRepository, _mapper);
+        _handler = new ListUsersQueryHandler(_userRepository, _mapper);
     }
 
     [Fact(DisplayName = "Handle should return paginated list of users when query is valid")]

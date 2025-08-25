@@ -6,15 +6,15 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Users.TestData
 {
     public class GetUserHandlerTestData
     {
-        public static GetUserCommand GenerateValidCommand()
+        public static GetUserQuery GenerateValidCommand()
         {
-            return new GetUserCommand(Guid.NewGuid());
+            return new GetUserQuery(Guid.NewGuid());
 
         }
 
-        public static GetUserCommand GenerateInvalidCommand()
+        public static GetUserQuery GenerateInvalidCommand()
         {
-            return new GetUserCommand(Guid.Empty);
+            return new GetUserQuery(Guid.Empty);
         }
 
         public static GetUserResult GenerateValidResult(User user)

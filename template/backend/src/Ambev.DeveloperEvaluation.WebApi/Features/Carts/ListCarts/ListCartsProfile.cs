@@ -9,7 +9,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts.ListCarts
     {
         public ListCartsProfile()
         {
-            CreateMap<ListCartsRequest, ListCartsCommand>();
+            CreateMap<ListCartsRequest, ListCartsQuery>();
             CreateMap<GetCartResult, GetCartResponse>();
         }
     }

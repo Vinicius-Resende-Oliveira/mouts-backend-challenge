@@ -14,13 +14,13 @@ public class ListCartsHandlerTests
 {
     private readonly ICartRepository _cartRepository;
     private readonly IMapper _mapper;
-    private readonly ListCartsHandler _handler;
+    private readonly ListCartsQueryHandler _handler;
 
     public ListCartsHandlerTests()
     {
         _cartRepository = Substitute.For<ICartRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new ListCartsHandler(_cartRepository, _mapper);
+        _handler = new ListCartsQueryHandler(_cartRepository, _mapper);
     }
 
     [Fact(DisplayName = "Dado filtros e paginação Quando listar carrinhos Então retorna lista paginada")]
@@ -31,7 +31,7 @@ public class ListCartsHandlerTests
         var results = carts.Select(GetCartHandlerTestData.GenerateValidResult).ToList();
         var queryable = carts.AsQueryable();
 
-        var command = new ListCartsCommand
+        var command = new ListCartsQuery
         {
             Page = 1,
             Size = 5,
@@ -67,7 +67,7 @@ public class ListCartsHandlerTests
         var minDate = DateTime.UtcNow.AddDays(-10);
         var maxDate = DateTime.UtcNow.AddDays(10);
 
-        var command = new ListCartsCommand
+        var command = new ListCartsQuery
         {
             Page = 1,
             Size = 3,
@@ -101,7 +101,7 @@ public class ListCartsHandlerTests
         var carts = new List<Cart>();
         var queryable = carts.AsQueryable();
 
-        var command = new ListCartsCommand
+        var command = new ListCartsQuery
         {
             Page = 1,
             Size = 10

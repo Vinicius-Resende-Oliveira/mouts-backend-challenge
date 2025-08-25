@@ -7,18 +7,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.ListSales;
 
-public class ListSalesHandler : IRequestHandler<ListSalesCommand, PaginatedList<GetSaleResult>>
+public class ListSalesQueryHandler : IRequestHandler<ListSalesQuery, PaginatedList<GetSaleResult>>
 {
     private readonly ISaleRepository _saleRepository;
     private readonly IMapper _mapper;
 
-    public ListSalesHandler(ISaleRepository saleRepository, IMapper mapper)
+    public ListSalesQueryHandler(ISaleRepository saleRepository, IMapper mapper)
     {
         _saleRepository = saleRepository;
         _mapper = mapper;
     }
 
-    public async Task<PaginatedList<GetSaleResult>> Handle(ListSalesCommand request, CancellationToken cancellationToken)
+    public async Task<PaginatedList<GetSaleResult>> Handle(ListSalesQuery request, CancellationToken cancellationToken)
     {
         var query = _saleRepository.GetAll(cancellationToken).AsNoTracking();
 

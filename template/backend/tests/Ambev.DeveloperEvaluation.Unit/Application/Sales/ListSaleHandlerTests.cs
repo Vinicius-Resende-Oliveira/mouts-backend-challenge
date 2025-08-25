@@ -14,13 +14,13 @@ public class ListSaleHandlerTests
 {
     private readonly ISaleRepository _saleRepository;
     private readonly IMapper _mapper;
-    private readonly ListSalesHandler _handler;
+    private readonly ListSalesQueryHandler _handler;
 
     public ListSaleHandlerTests()
     {
         _saleRepository = Substitute.For<ISaleRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new ListSalesHandler(_saleRepository, _mapper);
+        _handler = new ListSalesQueryHandler(_saleRepository, _mapper);
     }
 
     [Fact(DisplayName = "Given filters and pagination When listing sales Then returns paginated list")]
@@ -31,7 +31,7 @@ public class ListSaleHandlerTests
         var results = sales.Select(GetSaleHandlerTestData.GenerateValidResult).ToList();
         var queryable = sales.AsQueryable();
 
-        var command = new ListSalesCommand
+        var command = new ListSalesQuery
         {
             Page = 1,
             Size = 5,
@@ -74,7 +74,7 @@ public class ListSaleHandlerTests
         var minDate = DateTime.UtcNow.AddDays(-10);
         var maxDate = DateTime.UtcNow.AddDays(10);
 
-        var command = new ListSalesCommand
+        var command = new ListSalesQuery
         {
             Page = 1,
             Size = 3,
@@ -115,7 +115,7 @@ public class ListSaleHandlerTests
         var sales = new List<Sale>();
         var queryable = sales.AsQueryable();
 
-        var command = new ListSalesCommand
+        var command = new ListSalesQuery
         {
             Page = 1,
             Size = 10

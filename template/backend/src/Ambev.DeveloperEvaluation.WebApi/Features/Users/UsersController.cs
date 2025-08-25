@@ -111,7 +111,7 @@ public class UsersController : BaseController
         if (!validationResult.IsValid)
             return BadRequest(validationResult.Errors);
 
-        var command = _mapper.Map<GetUserCommand>(request.Id);
+        var command = _mapper.Map<GetUserQuery>(request.Id);
         var response = await _mediator.Send(command, cancellationToken);
 
         return OkData(_mapper.Map<GetUserResponse>(response));
@@ -146,7 +146,7 @@ public class UsersController : BaseController
     [ProducesResponseType(typeof(PaginatedResponse<GetUserResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllUsers([FromQuery] ListUsersRequest request)
     {
-        var query = _mapper.Map<ListUsersCommand>(request);
+        var query = _mapper.Map<ListUsersQuery>(request);
 
         var result = await _mediator.Send(query);
 

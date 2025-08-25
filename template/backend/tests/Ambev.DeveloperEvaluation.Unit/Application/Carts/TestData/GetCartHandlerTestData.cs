@@ -6,15 +6,15 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Carts.TestData
 {
     public class GetCartHandlerTestData
     {
-        public static GetCartCommand GenerateValidCommand()
+        public static GetCartQuery GenerateValidCommand()
         {
-            return new GetCartCommand(Guid.NewGuid());
+            return new GetCartQuery(Guid.NewGuid());
 
         }
 
-        public static GetCartCommand GenerateInvalidCommand()
+        public static GetCartQuery GenerateInvalidCommand()
         {
-            return new GetCartCommand(Guid.Empty);
+            return new GetCartQuery(Guid.Empty);
         }
 
         public static GetCartResult GenerateValidResult(Cart cart)

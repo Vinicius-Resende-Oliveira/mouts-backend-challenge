@@ -6,7 +6,7 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.GetCart;
 /// <summary>
 /// Command for retrieving a cart by their ID
 /// </summary>
-public class GetCartCommand : IRequest<GetCartResult>
+public class GetCartQuery : IRequest<GetCartResult>
 {
     /// <summary>
     /// The unique identifier of the cart to retrieve
@@ -17,7 +17,7 @@ public class GetCartCommand : IRequest<GetCartResult>
     /// Initializes a new instance of GetCartCommand
     /// </summary>
     /// <param name="id">The ID of the cart to retrieve</param>
-    public GetCartCommand(Guid id)
+    public GetCartQuery(Guid id)
     {
         Id = id;
     }

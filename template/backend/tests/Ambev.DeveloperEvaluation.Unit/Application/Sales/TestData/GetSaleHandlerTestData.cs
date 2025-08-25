@@ -7,15 +7,15 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales.TestData
 {
     public class GetSaleHandlerTestData
     {
-        public static GetSaleCommand GenerateValidCommand()
+        public static GetSaleQuery GenerateValidCommand()
         {
-            return new GetSaleCommand(Guid.NewGuid());
+            return new GetSaleQuery(Guid.NewGuid());
 
         }
 
-        public static GetSaleCommand GenerateInvalidCommand()
+        public static GetSaleQuery GenerateInvalidCommand()
         {
-            return new GetSaleCommand(Guid.Empty);
+            return new GetSaleQuery(Guid.Empty);
         }
 
         public static GetSaleResult GenerateValidResult(Sale sale)

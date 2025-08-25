@@ -15,13 +15,13 @@ public class GetProductHandlerTests
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
-    private readonly GetProductHandler _handler;
+    private readonly GetProductQueryHandler _handler;
 
     public GetProductHandlerTests()
     {
         _productRepository = Substitute.For<IProductRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new GetProductHandler(_productRepository, _mapper);
+        _handler = new GetProductQueryHandler(_productRepository, _mapper);
     }
 
     [Fact(DisplayName = "Valid ID Given When fetch product Then return product")]
@@ -36,7 +36,7 @@ public class GetProductHandlerTests
         _mapper.Map<GetProductResult>(product).Returns(result);
 
         // Act
-        var getProductResult = await _handler.Handle(new GetProductCommand(command.Id), CancellationToken.None);
+        var getProductResult = await _handler.Handle(new GetProductQuery(command.Id), CancellationToken.None);
 
         // Assert
         getProductResult.Should().NotBeNull();
@@ -49,7 +49,7 @@ public class GetProductHandlerTests
     public async Task Handle_InvalidRequest_ThrowsValidationException()
     {
         // Arrange
-        var invalidCommand = new GetProductCommand(Guid.Empty);
+        var invalidCommand = new GetProductQuery(Guid.Empty);
 
         // Act
         Func<Task> act = () => _handler.Handle(invalidCommand, CancellationToken.None);
@@ -66,7 +66,7 @@ public class GetProductHandlerTests
         _productRepository.GetByIdAsync(command.Id, Arg.Any<CancellationToken>()).Returns((Product?)null);
 
         // Act
-        Func<Task> act = () => _handler.Handle(new GetProductCommand(command.Id), CancellationToken.None);
+        Func<Task> act = () => _handler.Handle(new GetProductQuery(command.Id), CancellationToken.None);
 
         // Assert
         await act.Should().ThrowAsync<KeyNotFoundException>()
@@ -85,7 +85,7 @@ public class GetProductHandlerTests
         _mapper.Map<GetProductResult>(product).Returns(result);
 
         // Act
-        await _handler.Handle(new GetProductCommand(command.Id), CancellationToken.None);
+        await _handler.Handle(new GetProductQuery(command.Id), CancellationToken.None);
 
         // Assert
         _mapper.Received(1).Map<GetProductResult>(product);

@@ -13,7 +13,7 @@ public class GetCartProfile : Profile
     /// </summary>
     public GetCartProfile()
     {
-        CreateMap<Guid, GetCartCommand>()
-            .ConstructUsing(id => new GetCartCommand(id));
+        CreateMap<Guid, GetCartQuery>()
+            .ConstructUsing(id => new GetCartQuery(id));
     }
 }

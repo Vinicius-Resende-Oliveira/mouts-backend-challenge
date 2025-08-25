@@ -9,7 +9,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetSale;
 /// <summary>
 /// Handler for processing GetSaleCommand requests
 /// </summary>
-public class GetSaleHandler : IRequestHandler<GetSaleCommand, GetSaleResult>
+public class GetSaleQueryHandler : IRequestHandler<GetSaleQuery, GetSaleResult>
 {
     private readonly ISaleRepository _saleRepository;
     private readonly IMapper _mapper;
@@ -20,7 +20,7 @@ public class GetSaleHandler : IRequestHandler<GetSaleCommand, GetSaleResult>
     /// <param name="saleRepository">The sale repository</param>
     /// <param name="mapper">The AutoMapper instance</param>
     /// <param name="validator">The validator for GetSaleCommand</param>
-    public GetSaleHandler(
+    public GetSaleQueryHandler(
         ISaleRepository saleRepository,
         IMapper mapper)
     {
@@ -34,9 +34,9 @@ public class GetSaleHandler : IRequestHandler<GetSaleCommand, GetSaleResult>
     /// <param name="request">The GetSale command</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>The sale details if found</returns>
-    public async Task<GetSaleResult> Handle(GetSaleCommand request, CancellationToken cancellationToken)
+    public async Task<GetSaleResult> Handle(GetSaleQuery request, CancellationToken cancellationToken)
     {
-        var validator = new GetSaleValidator();
+        var validator = new GetSaleQueryValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (!validationResult.IsValid)

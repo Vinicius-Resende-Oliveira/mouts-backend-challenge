@@ -111,7 +111,7 @@ public class CartsController : BaseController
         if (!validationResult.IsValid)
             return BadRequest(validationResult.Errors);
 
-        var command = _mapper.Map<GetCartCommand>(request.Id);
+        var command = _mapper.Map<GetCartQuery>(request.Id);
         var response = await _mediator.Send(command, cancellationToken);
 
         return OkData(_mapper.Map<GetCartResponse>(response));
@@ -146,7 +146,7 @@ public class CartsController : BaseController
     [ProducesResponseType(typeof(PaginatedResponse<GetCartResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllCarts([FromQuery] ListCartsRequest request)
     {
-        var query = _mapper.Map<ListCartsCommand>(request);
+        var query = _mapper.Map<ListCartsQuery>(request);
 
         var result = await _mediator.Send(query);
 

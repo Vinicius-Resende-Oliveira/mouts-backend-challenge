@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.ListProducts;
 
-public class ListProductsCommand : PaginatedListRequest, IRequest<PaginatedList<GetProductResult>>
+public class ListProductsQuery : PaginatedListRequest, IRequest<PaginatedList<GetProductResult>>
 {
     public string Title { get; set; } = String.Empty;
     public decimal? MinPrice { get; set; }

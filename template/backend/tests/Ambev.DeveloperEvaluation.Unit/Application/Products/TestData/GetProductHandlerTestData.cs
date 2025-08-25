@@ -6,15 +6,15 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Products.TestData
 {
     public class GetProductHandlerTestData
     {
-        public static GetProductCommand GenerateValidCommand()
+        public static GetProductQuery GenerateValidCommand()
         {
-            return new GetProductCommand(Guid.NewGuid());
+            return new GetProductQuery(Guid.NewGuid());
 
         }
 
-        public static GetProductCommand GenerateInvalidCommand()
+        public static GetProductQuery GenerateInvalidCommand()
         {
-            return new GetProductCommand(Guid.Empty);
+            return new GetProductQuery(Guid.Empty);
         }
 
         public static GetProductResult GenerateValidResult(Product product)

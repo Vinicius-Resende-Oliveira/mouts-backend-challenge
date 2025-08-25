@@ -5,12 +5,12 @@ namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
 /// <summary>
 /// Validator for GetProductCommand
 /// </summary>
-public class GetProductValidator : AbstractValidator<GetProductCommand>
+public class GetProductQueryValidator : AbstractValidator<GetProductQuery>
 {
     /// <summary>
     /// Initializes validation rules for GetProductCommand
     /// </summary>
-    public GetProductValidator()
+    public GetProductQueryValidator()
     {
         RuleFor(x => x.Id)
             .NotEmpty()

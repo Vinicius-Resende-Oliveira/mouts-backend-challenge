@@ -5,12 +5,12 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.GetCart;
 /// <summary>
 /// Validator for GetCartCommand
 /// </summary>
-public class GetCartValidator : AbstractValidator<GetCartCommand>
+public class GetCartQueryValidator : AbstractValidator<GetCartQuery>
 {
     /// <summary>
     /// Initializes validation rules for GetCartCommand
     /// </summary>
-    public GetCartValidator()
+    public GetCartQueryValidator()
     {
         RuleFor(x => x.Id)
             .NotEmpty()

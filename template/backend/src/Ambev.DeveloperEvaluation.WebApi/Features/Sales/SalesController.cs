@@ -111,7 +111,7 @@ public class SalesController : BaseController
         if (!validationResult.IsValid)
             return BadRequest(validationResult.Errors);
 
-        var command = _mapper.Map<GetSaleCommand>(request.Id);
+        var command = _mapper.Map<GetSaleQuery>(request.Id);
         var response = await _mediator.Send(command, cancellationToken);
 
         return OkData(_mapper.Map<GetSaleResponse>(response));
@@ -146,7 +146,7 @@ public class SalesController : BaseController
     [ProducesResponseType(typeof(PaginatedResponse<GetSaleResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllSales([FromQuery] ListSalesRequest request)
     {
-        var query = _mapper.Map<ListSalesCommand>(request);
+        var query = _mapper.Map<ListSalesQuery>(request);
 
         var result = await _mediator.Send(query);
 

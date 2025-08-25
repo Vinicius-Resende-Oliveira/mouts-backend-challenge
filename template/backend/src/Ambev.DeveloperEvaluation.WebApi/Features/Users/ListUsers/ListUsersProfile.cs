@@ -9,7 +9,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Users.ListUsers
     {
         public ListUsersProfile()
         {
-            CreateMap<ListUsersRequest, ListUsersCommand>();
+            CreateMap<ListUsersRequest, ListUsersQuery>();
             CreateMap<GetUserResult, GetUserResponse>();
         }
     }

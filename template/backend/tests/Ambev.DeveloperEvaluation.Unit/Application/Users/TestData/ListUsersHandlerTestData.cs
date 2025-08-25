@@ -7,9 +7,9 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Users.TestData;
 
 public static class ListUsersHandlerTestData
 {
-    public static ListUsersCommand GenerateValidCommand()
+    public static ListUsersQuery GenerateValidCommand()
     {
-        return new ListUsersCommand
+        return new ListUsersQuery
         {
             Page = 1,
             Size = 10,

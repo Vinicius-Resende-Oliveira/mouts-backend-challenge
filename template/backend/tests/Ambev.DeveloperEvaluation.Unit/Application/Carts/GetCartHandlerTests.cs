@@ -15,13 +15,13 @@ public class GetCartHandlerTests
 {
     private readonly ICartRepository _cartRepository;
     private readonly IMapper _mapper;
-    private readonly GetCartHandler _handler;
+    private readonly GetCartQueryHandler _handler;
 
     public GetCartHandlerTests()
     {
         _cartRepository = Substitute.For<ICartRepository>();
         _mapper = Substitute.For<IMapper>();
-        _handler = new GetCartHandler(_cartRepository, _mapper);
+        _handler = new GetCartQueryHandler(_cartRepository, _mapper);
     }
 
     [Fact(DisplayName = "Given a valid command When getting cart Then returns cart result")]
@@ -29,7 +29,7 @@ public class GetCartHandlerTests
     {
         // Arrange
         var cart = CartHandlerTestData.GenerateValidCart();
-        var command = new GetCartCommand(cart.Id);
+        var command = new GetCartQuery(cart.Id);
         var result = GetCartHandlerTestData.GenerateValidResult(cart);
 
         _cartRepository.GetByIdAsync(cart.Id, Arg.Any<CancellationToken>()).Returns(cart);
@@ -79,7 +79,7 @@ public class GetCartHandlerTests
     {
         // Arrange
         var cart = CartHandlerTestData.GenerateValidCart();
-        var command = new GetCartCommand(cart.Id);
+        var command = new GetCartQuery(cart.Id);
         var result = GetCartHandlerTestData.GenerateValidResult(cart);
 
         _cartRepository.GetByIdAsync(cart.Id, Arg.Any<CancellationToken>()).Returns(cart);

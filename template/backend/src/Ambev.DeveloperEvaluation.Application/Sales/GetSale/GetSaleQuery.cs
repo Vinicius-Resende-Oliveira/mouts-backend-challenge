@@ -6,7 +6,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetSale;
 /// <summary>
 /// Command for retrieving a sale by their ID
 /// </summary>
-public class GetSaleCommand : IRequest<GetSaleResult>
+public class GetSaleQuery : IRequest<GetSaleResult>
 {
     /// <summary>
     /// The unique identifier of the sale to retrieve
@@ -17,7 +17,7 @@ public class GetSaleCommand : IRequest<GetSaleResult>
     /// Initializes a new instance of GetSaleCommand
     /// </summary>
     /// <param name="id">The ID of the sale to retrieve</param>
-    public GetSaleCommand(Guid id)
+    public GetSaleQuery(Guid id)
     {
         Id = id;
     }

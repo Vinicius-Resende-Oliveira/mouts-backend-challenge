@@ -7,18 +7,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.ListProducts;
 
-public class ListProductsHandler : IRequestHandler<ListProductsCommand, PaginatedList<GetProductResult>>
+public class ListProductsQueryHandler : IRequestHandler<ListProductsQuery, PaginatedList<GetProductResult>>
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
 
-    public ListProductsHandler(IProductRepository productRepository, IMapper mapper)
+    public ListProductsQueryHandler(IProductRepository productRepository, IMapper mapper)
     {
         _productRepository = productRepository;
         _mapper = mapper;
     }
 
-    public async Task<PaginatedList<GetProductResult>> Handle(ListProductsCommand request, CancellationToken cancellationToken)
+    public async Task<PaginatedList<GetProductResult>> Handle(ListProductsQuery request, CancellationToken cancellationToken)
     {
         var query = _productRepository.GetAll(cancellationToken).AsNoTracking();
 

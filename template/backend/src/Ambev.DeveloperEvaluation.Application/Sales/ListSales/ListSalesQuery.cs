@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.ListSales;
 
-public class ListSalesCommand : PaginatedListRequest, IRequest<PaginatedList<GetSaleResult>>
+public class ListSalesQuery : PaginatedListRequest, IRequest<PaginatedList<GetSaleResult>>
 {
     public int? SaleNumber { get; set; }
     public bool? IsCancelled { get; set; }
